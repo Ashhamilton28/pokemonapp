@@ -11,13 +11,11 @@ const PORT = 3000
 //====Configuration
 //these 2 lines of code are needed to set everything up
 app.set('view engine', 'jsx')
-
 app.engine('jsx', require('jsx-view-engine').createEngine())
 
 //======Middleware
 //Setting a middleware to run in our app
 app.use((req, res, next) => {
-
     console.log(req.url)
     next()
 })
@@ -30,6 +28,15 @@ app.use(express.urlencoded({ extended: false }))
 app.get('/', (req, res)=>{
     // res.send(pokemon)
     res.render('Index', {pokemon: pokemon})
+})
+
+//return list of pokemon
+app.get('/pokemon', (req, res)=>{
+    res.render('Index', {pokemon: pokemon})
+})
+
+app.get('/pokemon/:indexOfPokemonArray', (req,res)=>{
+    res.render('Show',{pokemon: pokemon[req.params.indexOfPokemonArray]})
 })
 
 
