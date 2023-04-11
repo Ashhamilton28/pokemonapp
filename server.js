@@ -25,8 +25,11 @@ app.use((req, res, next) => {
 //parses the data from the request
 app.use(express.urlencoded({ extended: false }))
 
+
+//change your /pokemon to res.render your Index.jsx file
 app.get('/', (req, res)=>{
-    res.send(pokemon)
+    // res.send(pokemon)
+    res.render('Index', {pokemon: pokemon})
 })
 
 
