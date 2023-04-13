@@ -35,10 +35,13 @@ app.get('/pokemon', (req, res)=>{
     res.render('Index', {pokemon: pokemon})
 })
 
-app.get('/pokemon/:indexOfPokemonArray', (req,res)=>{
-    res.render('Show',{pokemon: pokemon[req.params.indexOfPokemonArray]})
-})
+// app.get('/pokemon/:indexOfPokemonArray', (req,res)=>{
+//     res.render('Show',{pokemon: pokemon[req.params.indexOfPokemonArray]})
+// })
 
+app.get('/pokemon/:id',(req, res)=>{
+    res.send (req.params.id)
+})
 
 //if none of the routes matches the request show 404 page
 app.get('*', (req, res) => {

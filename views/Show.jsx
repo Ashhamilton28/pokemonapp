@@ -10,7 +10,7 @@ function Show(props){
 
             <h2>{pokemon.name} 
             </h2>
-            <img href="/">{pokemon.img}</img>
+            <img src={pokemon.img} href="/"/>
         </div>
     )
 }

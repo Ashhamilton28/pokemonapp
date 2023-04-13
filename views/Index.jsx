@@ -14,10 +14,11 @@ function Index(props) {
 
 
       <ul>
-        {pokemon.map((pokemon, i) => {
+        {pokemon.map((pokemonChar, i) => {
           return (
+           
             <li>
-              <a href={`/pokemon/${i}`}>{pokemon.name.charAt(0).toUpperCase()+ pokemon.name.slice(1)}</a> 
+              <a key={pokemon.indexOf(pokemonChar)} href={`/pokemon/${i}`}>{pokemonChar.name.charAt(0).toUpperCase()+ pokemonChar.name.slice(1)}</a> 
             </li>
           );
         })}
