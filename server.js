@@ -35,13 +35,13 @@ app.get('/pokemon', (req, res)=>{
     res.render('Index', {pokemon: pokemon})
 })
 
-// app.get('/pokemon/:indexOfPokemonArray', (req,res)=>{
-//     res.render('Show',{pokemon: pokemon[req.params.indexOfPokemonArray]})
-// })
-
-app.get('/pokemon/:id',(req, res)=>{
-    res.send (req.params.id)
+app.get('/pokemon/:id', (req,res)=>{
+    res.render('Show',{pokemon: pokemon[req.params.id]})
 })
+
+// app.get('/pokemon/:id',(req, res)=>{
+//     res.send (req.params.id)
+// })
 
 //if none of the routes matches the request show 404 page
 app.get('*', (req, res) => {
@@ -56,7 +56,7 @@ app.listen(3000, () => {
     console.log(`Server running on  port: ${PORT}`);
     mongoose.set('strictQuery', true)
     // connect to mongodDB
-    mongoose.connect(process.env.MONGO_URI, {
+    mongoose.connect(process.env.MONGO_URI_KEY, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
