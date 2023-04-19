@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose')
 //data
 const pokemon = require('./models/pokemon')
+const okemonmodel = require('./models/Pokemonmodel')
 const app = express();
 const PORT = 3000
 
@@ -27,12 +28,24 @@ app.use(express.urlencoded({ extended: false }))
 //change your /pokemon to res.render your Index.jsx file
 app.get('/', (req, res)=>{
     // res.send(pokemon)
-    res.render('Index', {pokemon: pokemon})
+    res.render('Index', {pokemon: allPokemonmodel})
 })
 
 //return list of pokemon
-app.get('/pokemon', (req, res)=>{
-    res.render('Index', {pokemon: pokemon})
+// app.get('/pokemon', (req, res)=>{
+//     res.render('Index', {pokemon: allPokemon})
+// })
+
+//post method
+app.post('/pokemon', (req, res)=>{
+Pokemonmodel.create(req.body,(error, createdPokemonmodel)=>{
+    res.redirect('/pokemon')
+})
+})
+
+//new route
+app.get('/pokemon/new', (req, res)=>{
+    res.render('New')
 })
 
 app.get('/pokemon/:id', (req,res)=>{
