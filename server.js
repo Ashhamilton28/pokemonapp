@@ -4,9 +4,11 @@ const express = require('express');
 const mongoose = require('mongoose')
 //data
 const pokemon = require('./models/pokemon')
-const okemonmodel = require('./models/Pokemonmodel')
+const methodOverride = require('method-override');
+const Pokemonmodel = require('./models/Pokemonmodel')
 const app = express();
 const PORT = 3000
+
 
 
 //====Configuration
@@ -23,38 +25,65 @@ app.use((req, res, next) => {
 
 //parses the data from the request
 app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'));
 
 
 //change your /pokemon to res.render your Index.jsx file
-app.get('/', (req, res)=>{
-    // res.send(pokemon)
-    res.render('Index', {pokemon: allPokemonmodel})
-})
-
-//return list of pokemon
-// app.get('/pokemon', (req, res)=>{
-//     res.render('Index', {pokemon: allPokemon})
+// app.get('/', (req, res)=>{
+// res.send(pokemon)
+//     res.render('Index', {pokemon: allPokemonmodel})
 // })
 
-//post method
-app.post('/pokemon', (req, res)=>{
-Pokemonmodel.create(req.body,(error, createdPokemonmodel)=>{
-    res.redirect('/pokemon')
+//return list of pokemon
+// app.get('/pokemon', (req, res) => {
+//     Pokemonmodel.find({}, (error, allPokemon) => {
+//         res.render('Index', {pokemon: allPokemonmodel})
+//     })
+// })
+
+app.get('/', (req, res)=>{
+    res.send('<h1>hello</h1>')
 })
+
+
+
+//!return list of pokemon(kinda works)
+app.get('/pokemon', (req, res) => {
+    Pokemonmodel.find({}, (error, pokemon) => {
+        res.render('Index', {pokemon: pokemon})
+    })
+})
+
+
+
+
+
+//post method
+app.post('/pokemon', (req, res) => {
+    Pokemonmodel.create(req.body, (error, createdPokemonmodel) => {
+        res.redirect('/pokemon')
+    })
 })
 
 //new route
-app.get('/pokemon/new', (req, res)=>{
+app.get('/pokemon/new', (req, res) => {
     res.render('New')
 })
 
-app.get('/pokemon/:id', (req,res)=>{
-    res.render('Show',{pokemon: pokemon[req.params.id]})
+//show route
+app.get('/pokemon/:id', (req, res) => {
+    Pokemonmodel.findById(req.params.id, (error, foundPokemon)=>
+    res.render('Show', { pokemon: foundPokemon })
+    )
+    
 })
 
 // app.get('/pokemon/:id',(req, res)=>{
 //     res.send (req.params.id)
 // })
+
+
+
 
 //if none of the routes matches the request show 404 page
 app.get('*', (req, res) => {

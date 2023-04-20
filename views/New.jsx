@@ -10,7 +10,7 @@ function New() {
         <input type="text" name="name" />
         <br />
 
-        Img: <input type="text" name="image" />
+        Img: <input type="text" name="img" />
         <br />
 
         <input type="submit" value="Submit New Pokemon" />
